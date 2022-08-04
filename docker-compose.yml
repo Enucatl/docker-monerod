@@ -13,24 +13,22 @@ services:
       - 18089:18089
 
     networks:
-      netgear:
+      macvlan:
         aliases:
           - monerod.local
-        ipv4_address: 192.168.10.53
 
     command:
       - "--log-file=/monero/monerod.log"
       - "--data-dir=/monero"
       - "--non-interactive"
-      - "--restricted-rpc"
-      - "--rpc-bind-ip=0.0.0.0"
-      - "--rpc-bind-port=18089"
+      - "--rpc-ignore-ipv4"
+      - "--rpc-use-ipv6"
+      - "--rpc-restricted-bind-ipv6-address=::"
+      - "--rpc-restricted-bind-port=18089"
       - "--confirm-external-bind"
       - "--max-concurrency=2"
       - "--public-node"
       - "--prune-blockchain"
-      - "--limit-rate-up=1024"
-      - "--limit-rate-down=2048"
 
     restart: unless-stopped
 
@@ -38,6 +36,6 @@ volumes:
   monero:
 
 networks:
-  netgear:
+  macvlan:
     external: true
-    name: netgear
+    name: macvlan
