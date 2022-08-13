@@ -24,7 +24,7 @@ services:
       - "--rpc-use-ipv6"
       - "--p2p-ignore-ipv4"
       - "--p2p-use-ipv6"
-      - "--rpc-restricted-bind-address=0.0.0.0"
+      - "--rpc-restricted-bind-ip=0.0.0.0"
       - "--rpc-restricted-bind-ipv6-address=::"
       - "--rpc-restricted-bind-port=18089"
       - "--confirm-external-bind"
