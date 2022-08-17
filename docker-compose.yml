@@ -12,11 +12,6 @@ services:
       - 18080:18080
       - 18089:18089
 
-    networks:
-      macvlan:
-        aliases:
-          - monerod.local
-
     command:
       - "--log-file=/monero/monerod.log"
       - "--data-dir=/monero"
@@ -38,8 +33,3 @@ services:
 
 volumes:
   monero:
-
-networks:
-  macvlan:
-    external: true
-    name: macvlan
