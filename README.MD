@@ -10,7 +10,7 @@ This image clones `https://github.com/monero-project/monero` and builds it accor
 Append any `monerod` params after the image name. i.e:
 
 ```shell
-docker run -it --rm Enucatl/monerod --help
+docker run -it --rm enucatl/monerod --help
 ```
 
 ### Blockchain Volume
@@ -27,7 +27,7 @@ version: "3"
 
 services:
   monerod:
-    image: Enucatl/monerod:latest
+    image: enucatl/monerod:latest
     container_name: monerod
     volumes:
       - monero:/monero
