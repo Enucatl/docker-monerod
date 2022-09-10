@@ -6,7 +6,7 @@ ARG MONERO_BRANCH
 
 # Dependency list from https://github.com/monero-project/monero#compiling-monero-from-source
 # Added DEBIAN_FRONTEND=noninteractive to workaround tzdata prompt on installation
-COPY binaryfate.asc monerokey.asc
+COPY src/binaryfate.asc monerokey.asc
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install ca-certificates bzip2 wget gpg\
     && rm -rf /var/lib/apt/lists/*\
     && wget --no-verbose https://downloads.getmonero.org/cli/linux64/monero-linux-x64-$MONERO_BRANCH.tar.bz2\
