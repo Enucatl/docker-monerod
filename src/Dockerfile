@@ -1,4 +1,4 @@
-ARG MONERO_BRANCH=v0.18.1.1
+ARG MONERO_BRANCH=v0.18.1.2
 
 # Use Ubuntu for the build image base
 FROM debian:stable-slim as build
