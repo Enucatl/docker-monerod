@@ -4,14 +4,12 @@ services:
   monerod:
     image: enucatl/monerod:latest
     container_name: monerod
-
+    restart: unless-stopped
     volumes:
       - monero:/monero
-
     ports:
       - 18080:18080
       - 18089:18089
-
     command:
       - "--log-file=/monero/monerod.log"
       - "--data-dir=/monero"
@@ -28,8 +26,8 @@ services:
       - "--prune-blockchain"
       - "--limit-rate-up=20000"
       - "--limit-rate-down=20000"
-
-    restart: unless-stopped
+    labels:
+      - "checkmk_monitor=true"
 
 volumes:
   monero:
