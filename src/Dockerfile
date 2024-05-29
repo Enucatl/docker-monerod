@@ -24,7 +24,7 @@ ARG MONERO_BRANCH
 COPY --from=build monero-x86_64-linux-gnu-$MONERO_BRANCH/monerod /usr/local/bin/monerod
 
 # Expose p2p and restricted RPC ports
-EXPOSE 18081
+EXPOSE 18080
 EXPOSE 18089
 
 # Start monerod with required --non-interactive flag and sane defaults that are overridden by user input (if applicable)
