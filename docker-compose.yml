@@ -29,7 +29,7 @@ services:
     labels:
       - "checkmk_monitor=true"
     networks:
-      - default
+      - default6
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=0
       - net.ipv6.conf.eth0.proxy_ndp=1
@@ -38,7 +38,7 @@ volumes:
   monero:
 
 networks:
-  default:
+  default6:
     enable_ipv6: true
     ipam:
       driver: default
