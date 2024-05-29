@@ -28,6 +28,17 @@ services:
       - "--limit-rate-down=20000"
     labels:
       - "checkmk_monitor=true"
+    networks:
+      - default
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv6.conf.eth0.proxy_ndp=1
 
 volumes:
   monero:
+
+networks:
+  default:
+    enable_ipv6: true
+    ipam:
+      driver: default
