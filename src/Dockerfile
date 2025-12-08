@@ -1,12 +1,13 @@
 ARG MONERO_BRANCH=v0.18.4.4
 
-FROM debian:13-slim as build
+FROM debian:13-slim AS build
 ARG MONERO_BRANCH
 
 # Dependency list from https://github.com/monero-project/monero#compiling-monero-from-source
 # Added DEBIAN_FRONTEND=noninteractive to workaround tzdata prompt on installation
 COPY src/binaryfate.asc monerokey.asc
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt -y install ca-certificates bzip2 wget gpg\
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends \
+  ca-certificates bzip2 gpg gpg-agent wget\
   && rm -rf /var/lib/apt/lists/*\
   && wget --no-verbose https://downloads.getmonero.org/cli/linux64/monero-linux-x64-$MONERO_BRANCH.tar.bz2\
   && wget --no-verbose https://www.getmonero.org/downloads/hashes.txt\
