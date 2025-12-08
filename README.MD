@@ -26,8 +26,6 @@ volume-map that path for persistance
 You'll need to modify it for your environment
 
 ```yaml
-version: "3"
-
 services:
   monerod:
     image: enucatl/monerod:latest
@@ -38,9 +36,6 @@ services:
       - 18080:18080
       - 18089:18089
     command:
-      - "--log-file=/monero/monerod.log"
-      - "--data-dir=/monero"
-      - "--non-interactive"
       - "--rpc-use-ipv6"
       - "--p2p-ignore-ipv4"
       - "--p2p-use-ipv6"
