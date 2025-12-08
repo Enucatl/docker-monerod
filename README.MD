@@ -1,7 +1,10 @@
-# Docker Monerod
-
+# What is this fork about?
 Fork of [lchaia/monerod](https://github.com/leonardochaia/docker-monerod)
-Run `monerod` using Docker.
+
+- Run as nonroot user on a distroless image
+- Proper volume mounting of /monero, that works also for userns-remap
+
+# Docker Monerod
 
 This image clones `https://github.com/monero-project/monero` and builds it according to instructions.
 

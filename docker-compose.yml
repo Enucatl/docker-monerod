@@ -1,6 +1,9 @@
 services:
   monerod:
-    image: enucatl/monerod:latest
+    image: ghcr.io/enucatl/monerod:latest
+    build:
+      context: .
+      dockerfile: src/Dockerfile
     container_name: monerod
     restart: unless-stopped
     volumes:
@@ -9,21 +12,20 @@ services:
       - 18080:18080
       - 18089:18089
     command:
-      - "--log-file=/monero/monerod.log"
-      - "--data-dir=/monero"
-      - "--non-interactive"
-      - "--rpc-use-ipv6"
+      - "--confirm-external-bind"
+      - "--limit-rate-down=20000"
+      - "--limit-rate-up=20000"
+      - "--max-concurrency=2"
+      - "--no-zmq"
       - "--p2p-ignore-ipv4"
       - "--p2p-use-ipv6"
+      - "--prune-blockchain"
+      - "--public-node"
       - "--rpc-restricted-bind-ip=0.0.0.0"
       - "--rpc-restricted-bind-ipv6-address=::"
       - "--rpc-restricted-bind-port=18089"
-      - "--confirm-external-bind"
-      - "--max-concurrency=2"
-      - "--public-node"
-      - "--prune-blockchain"
-      - "--limit-rate-up=20000"
-      - "--limit-rate-down=20000"
+      - "--rpc-use-ipv6"
+      - "--sync-pruned-blocks"
     labels:
       - "checkmk_monitor=true"
     networks:

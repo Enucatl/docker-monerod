@@ -2,33 +2,48 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
+    
+    # Permission required to push images to ghcr.io
+    permissions:
+      contents: read
+      packages: write
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    -
-      name: Login to Docker Hub
+
+    - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-    -
-      name: Set up Docker Buildx
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
-    -
-      name: Build and push
+
+    # Docker tags must be lowercase, but GitHub usernames might contain uppercase letters.
+    # This step ensures the username is lowercase before using it in the tag.
+    - name: Lowercase Owner Name
+      run: |
+        echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+      env:
+        OWNER: '${{ github.repository_owner }}'
+
+    - name: Build and push
       uses: docker/build-push-action@v4
       with:
         context: .
         file: ./src/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/monerod:latest
+        # Tag format: ghcr.io/owner/image-name:tag
+        tags: ghcr.io/${{ env.OWNER_LC }}/monerod:latest
