@@ -7,16 +7,18 @@ services:
     container_name: monerod
     restart: unless-stopped
     volumes:
-      - /mnt/monero-data/volume:/monero
+      - /scratch/monerod:/monero
     ports:
       - 18080:18080
       - 18089:18089
     command:
       - "--confirm-external-bind"
+      - "--db-sync-mode=safe:sync:250000000bytes"
       - "--limit-rate-down=20000"
       - "--limit-rate-up=20000"
-      - "--max-concurrency=2"
+      - "--max-concurrency=1"
       - "--no-zmq"
+      - "--out-peers=8"
       - "--p2p-ignore-ipv4"
       - "--p2p-use-ipv6"
       - "--prune-blockchain"
