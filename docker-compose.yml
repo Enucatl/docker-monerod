@@ -1,9 +1,13 @@
 services:
   monerod:
+    extends:
+      file: ../compose-security-baseline/hardening.yml
+      service: hardened-xlarge
     image: ghcr.io/enucatl/monerod:latest
     build:
       context: .
       dockerfile: src/Dockerfile
+    cpu_shares: 128
     container_name: monerod
     restart: unless-stopped
     volumes:
