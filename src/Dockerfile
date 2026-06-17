@@ -7,13 +7,12 @@ ARG MONERO_BRANCH
 # Added DEBIAN_FRONTEND=noninteractive to workaround tzdata prompt on installation
 COPY src/binaryfate.asc monerokey.asc
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends \
-  ca-certificates bzip2 gpg wget\
+  ca-certificates bzip2 gpg gpg-agent wget\
   && rm -rf /var/lib/apt/lists/*\
   && wget --no-verbose https://downloads.getmonero.org/cli/linux64/monero-linux-x64-$MONERO_BRANCH.tar.bz2\
   && wget --no-verbose https://www.getmonero.org/downloads/hashes.txt\
   && gpg --import monerokey.asc\
   && gpg --verify hashes.txt\
-  && echo $MONERO_BRANCH\
   && grep $(sha256sum monero-linux-x64-$MONERO_BRANCH.tar.bz2) hashes.txt \
   && tar xjfv monero-linux-x64-$MONERO_BRANCH.tar.bz2 \
   && chmod +x "monero-x86_64-linux-gnu-$MONERO_BRANCH/monerod" \
