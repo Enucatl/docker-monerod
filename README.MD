@@ -23,36 +23,7 @@ volume-map that path for persistance
 
 ## Docker Compose example
 
-You'll need to modify it for your environment
-
-```yaml
-services:
-  monerod:
-    image: enucatl/monerod:latest
-    container_name: monerod
-    volumes:
-      - monero:/monero
-    ports:
-      - 18080:18080
-      - 18089:18089
-    command:
-      - "--rpc-use-ipv6"
-      - "--p2p-ignore-ipv4"
-      - "--p2p-use-ipv6"
-      - "--rpc-restricted-bind-ip=0.0.0.0"
-      - "--rpc-restricted-bind-ipv6-address=::"
-      - "--rpc-restricted-bind-port=18089"
-      - "--confirm-external-bind"
-      - "--max-concurrency=2"
-      - "--public-node"
-      - "--prune-blockchain"
-      - "--limit-rate-up=20000"
-      - "--limit-rate-down=20000"
-    restart: unless-stopped
-
-volumes:
-  monero:
-```
+See [docker-compose.yml](docker-compose.yml) and modify it for your environment.
 
 ## Copyrights
 
