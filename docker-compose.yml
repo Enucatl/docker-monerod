@@ -40,8 +40,6 @@ services:
       - "--rpc-response-soft-limit=16777216"
       - "--rpc-use-ipv6"
       - "--sync-pruned-blocks"
-    labels:
-      - "checkmk_monitor=true"
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=0
 
