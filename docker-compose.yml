@@ -10,6 +10,7 @@ services:
     cpu_shares: 128
     container_name: monerod
     restart: "no"
+    stop_signal: SIGINT
     volumes:
       - /scratch/monerod:/monero
     ports:
