@@ -35,10 +35,10 @@ ssh docker.home.arpa 'cd /opt/docker/monerod && docker compose up -d monerod'
 ```
 
 Wait for the node to catch up with the blockchain, then connect the wallet as
-usual. Stop it afterward, allowing time for the database to flush:
+usual. Stop it afterward through Monero's RPC so it can flush the database cleanly:
 
 ```shell
-ssh docker.home.arpa 'cd /opt/docker/monerod && docker compose stop -t 120 monerod'
+ssh docker.home.arpa 'docker exec monerod /usr/local/bin/busybox wget -qO- --header="Content-Type: application/json" --post-data="" http://127.0.0.1:18081/stop_daemon'
 ```
 
 The blockchain remains in `/scratch/monerod` between runs. Update the image
