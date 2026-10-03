@@ -25,6 +25,25 @@ volume-map that path for persistance
 
 See [docker-compose.yml](docker-compose.yml) and modify it for your environment.
 
+### Run on demand
+
+Docker automatic restarts and Puppet deployment/refresh units are disabled for
+this node. Start it before using the desktop wallet:
+
+```shell
+ssh docker.home.arpa 'cd /opt/docker/monerod && docker compose up -d monerod'
+```
+
+Wait for the node to catch up with the blockchain, then connect the wallet as
+usual. Stop it afterward, allowing time for the database to flush:
+
+```shell
+ssh docker.home.arpa 'cd /opt/docker/monerod && docker compose stop -t 120 monerod'
+```
+
+The blockchain remains in `/scratch/monerod` between runs. Update the image
+manually with `docker compose pull monerod` before starting when needed.
+
 ## Copyrights
 
 Code from this repository is released under MIT license.

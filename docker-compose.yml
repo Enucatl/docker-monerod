@@ -9,7 +9,7 @@ services:
       dockerfile: src/Dockerfile
     cpu_shares: 128
     container_name: monerod
-    restart: unless-stopped
+    restart: "no"
     volumes:
       - /scratch/monerod:/monero
     ports:
