@@ -19,7 +19,8 @@ jobs:
     - name: Get latest Monero release
       id: latest
       run: |
-        LATEST=$(curl -s https://api.github.com/repos/monero-project/monero/releases/latest | jq -r '.tag_name')
+        set -euo pipefail
+        LATEST=$(curl -fsS https://api.github.com/repos/monero-project/monero/releases/latest | jq -er '.tag_name')
         echo "version=$LATEST" >> $GITHUB_OUTPUT
 
     - name: Get current version from Dockerfile
